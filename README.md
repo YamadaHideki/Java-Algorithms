@@ -51,3 +51,45 @@ public long searchMissingNumberXor() {
         return xor;
     }
 ```
+### Алгоритм нахождения максимального числа в отсортированном массиве со смещением (не работает без смещения)
+```Java
+int[] a = new int[] {3, 4, 5, 6, 7, 8, 9, 1, 2};
+int left = 0;
+int right = a.length - 1;
+
+int nextEl;
+int prevEl;
+
+int max = 0;
+
+while (left <= right) {
+    int mid = (left + right) / 2;
+    System.out.println("MID: " + mid);
+    try {
+        nextEl = a[mid + 1];
+    } catch (ArrayIndexOutOfBoundsException e) {
+        nextEl = a[0];
+    }
+
+    try {
+        prevEl = a[mid - 1];
+    } catch (ArrayIndexOutOfBoundsException e) {
+        prevEl = a[a.length - 1];
+    }
+
+    if (a[mid] > nextEl && a[mid] > prevEl) {
+        max = a[mid];
+        break;
+    }
+
+    if (a[left] >= a[mid]) {
+        right = mid - 1;
+    } else {
+        left = mid + 1;
+    }
+}
+
+if (max == 0) {
+    max = -1;
+}
+```
